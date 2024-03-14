@@ -1,39 +1,22 @@
-import cv2 
-  
-  
-# define a video capture object 
-# vid = cv2.VideoCapture('rtsp://192.168.30.125:554/mainstream1') 
-vid = cv2.VideoCapture(0) 
+import pandas as pd
+from sklearn.metrics import classification_report
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np 
+import numba as nb
+import sklearn
+import cv2
+import os
 
-def variance_of_laplacian(image):
-	# compute the Laplacian of the image and then return the focus
-	# measure, which is simply the variance of the Laplacian
-	return cv2.Laplacian(image, cv2.CV_64F).var()
+from time_checker import frequency_based, frequency_based_scipy, edge_based, laplacian_variance, time_it
 
-while(True): 
+def classify_edge(lst:list):
+    treshold = 5
+    return [0 if i >= treshold else 1 for i in lst]
 
-    ret, frame = vid.read() 
-    if True:
-        # frame = cv2.resize(frame, (1280, 720), cv2.INTER_AREA)
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        fm = variance_of_laplacian(gray)
-        text = "Not Blurry"
-        if fm < 100:
-            text = "Blurry"
-        h, w, c = frame.shape
-        print(f'height: {h}, width: {w}')
-        frame = cv2.putText(frame, f"{text}: {fm}", (int(h*0.1), int(w*0.1)),
-			cv2.FONT_ITALIC, h*w/300000, (0, 0, 255), int(h*w/100000))
-    	# Display the resulting frame 
-        cv2.imshow('frame', frame) 
-      
-    # the 'q' button is set as the 
-    # quitting button you may use any 
-    # desired button of your choice 
-    if cv2.waitKey(1) & 0xFF == ord('q'): 
-        break
-  
-# After the loop release the cap object 
-vid.release() 
-# Destroy all the windows 
-cv2.destroyAllWindows() 
+if __name__ == '__main__':
+    df = pd.read_csv('processed_results.csv', index_col=False)
+    
+    y_true = np.array(df['label'])
+    y_scores = classify_edge(df['edge_based'])
+    print(classification_report(y_true, y_scores))
