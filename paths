@@ -1,4 +1,0 @@
-Sysoev/incass_case_classificator/train_case_incass/several_outs/arch=timm/lcnet_050.ra2_in1k_batch=64_lr=0.001_epoch=100_size=224/best.pth
-Sysoev/incass_case_classificator/train_case_incass/several_outs/arch=timm/mobilenetv3_small_100.lamb_in1k_batch=64_lr=0.001_epoch=100_size=224/best.pth
-Sysoev/incass_case_classificator/train_case_incass/several_outs/arch=timm/mobileone_s0.apple_in1k_batch=64_lr=0.001_epoch=100_size=224/best.pth
-Sysoev/incass_case_classificator/train_case_incass/several_outs/arch=efficientnet_b0_batch=64_lr=0.001_epoch=100_size=224/best.pth
